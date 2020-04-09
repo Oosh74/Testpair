@@ -35,9 +35,9 @@ export const fetchCampuses = () => async (dispatch) => {
   }
 };
 
-export const postCampus = () => async (dispatch) => {
+export const postCampus = (campus) => async (dispatch) => {
   try {
-    const { data } = await axios.post('/api/campuses');
+    const { data } = await axios.post('/api/campuses', campus);
     dispatch(addCampus(data));
   } catch (error) {
     return error;
