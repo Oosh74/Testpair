@@ -2,31 +2,46 @@
 
 const utils = {};
 
-utils.getInitials = () => {
-  //your code here
+//Takes a name and returns their initials capitalized
+utils.getInitials = (string) => {
+  let strArr = string.split(' ');
+  return strArr
+    .map((word) => {
+      let initials = '';
+      initials += word[0];
+      return initials;
+    })
+    .join('')
+    .toUpperCase();
 };
 
-utils.makeObjectFromArray = input => {
-  // INPUT arguments
-  //   - A 1-dimensional array of key names followed by their values
-  //     - example: ['name', 'R2-D2', 'home_planet', 'Tatooine']
-  //
-  // RETURN value
-  //   - An object whose keys are the odd elements of the input array and whose values are the even elements of the input array
-  //     - example: {name: 'R2-D2', home_planet: 'Tatooine'}
-  //
-  //your code here
+utils.makeObjectFromArray = (input) => {
+  let obj = {};
+  for (let i = 0; i < input.length; i++) {
+    if (i % 2 === 0) {
+      obj[input[i]] = input[i + 1];
+    }
+  }
+
+  return obj;
 };
 
-utils.generateGroups = () => {
-  // INPUT arguments
-  //   - A 1-dimensional array
-  //   - The length of each subgroup that should be created
-  //
-  // RETURN value
-  //   - A 2-dimensional array of arrays. Each subarray should be as long as the length argument passed in to the function, except for the final subarray, which can be shorter and contain a "remainder" smaller than that length.
-  //
-  //your code here
+utils.generateGroups = (array, size) => {
+  let groupArray = [];
+  let soloArray = [];
+  for (let i = 0; i < array.length; i++) {
+    if (soloArray.length <= size) {
+      soloArray.push(array[i]);
+    }
+    if (soloArray.length >= size) {
+      groupArray.push(soloArray);
+      soloArray = [];
+    }
+  }
+  if (soloArray.length) {
+    groupArray.push(soloArray);
+  }
+  return groupArray;
 };
 
 module.exports = utils;

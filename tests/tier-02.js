@@ -56,7 +56,7 @@ describe('Tier Two', () => {
           student = Student.build();
         });
 
-        xit('requires `name`', async () => {
+        it('requires `name`', async () => {
           try {
             await student.validate();
             throw new Error('Validation succeeded but should have failed');
@@ -65,7 +65,7 @@ describe('Tier Two', () => {
           }
         });
 
-        xit('requires `phase` property to be either NULL, "junior", or "senior" (nothing else)', async () => {
+        it('requires `phase` property to be either NULL, "junior", or "senior" (nothing else)', async () => {
           student.name = 'Mariya Dova';
 
           // confirming these work fine
@@ -128,14 +128,14 @@ describe('Tier Two', () => {
       });
 
       describe('Campus', () => {
-        xit('has associated students', async () => {
+        it('has associated students', async () => {
           const result = await campus1.hasStudents([student1, student3]);
           expect(result).to.be.true;
         });
       });
 
       describe('GET `/api/campuses/:id/students` route', () => {
-        xit('gets all students associated with a campus', async () => {
+        it('gets all students associated with a campus', async () => {
           const response = await agent
             .get('/api/campuses/1/students')
             .expect(200);
@@ -188,7 +188,7 @@ describe('Tier Two', () => {
       // put first student back
       marsCampus.students.unshift(firstStudent);
 
-      xit('renders the name of the campus in an <h2>, which should be inside a <div>', () => {
+      it('renders the name of the campus in an <h2>, which should be inside a <div>', () => {
         expect(renderedMarsCampus.find('h2').text()).to.equal('Mars');
         expect(renderedRedPlanetCampus.find('h2').text()).to.equal(
           'Red Planet'
@@ -196,7 +196,7 @@ describe('Tier Two', () => {
       });
 
       // NOTE: The <SingleStudent /> component should take a prop called `student`, which is the student to render
-      xit('renders a list of <SingleStudent /> components with the student passed in, inside of the same <div> as the <h2> name of the campus', () => {
+      it('renders a list of <SingleStudent /> components with the student passed in, inside of the same <div> as the <h2> name of the campus', () => {
         const renderedMarsStudents = renderedMarsCampus.find(SingleStudent);
         expect(renderedMarsStudents.length).to.equal(4);
         expect(renderedMarsStudents.get(2).props.student.name).to.equal(
@@ -233,7 +233,7 @@ describe('Tier Two', () => {
         describe('`selectCampusAction` action creator', () => {
           // defined in ../client/redux/actions.js
 
-          xit('creates SELECT_CAMPUS actions', () => {
+          it('creates SELECT_CAMPUS actions', () => {
             const selectCampusAction = selectCampus(marsCampus);
             expect(selectCampusAction.type).to.equal(SELECT_CAMPUS);
             expect(selectCampusAction.campus).to.equal(marsCampus);
@@ -243,7 +243,7 @@ describe('Tier Two', () => {
         describe('reducer', () => {
           // defined in ../client/redux/reducer.js
 
-          xit('returns an immutably-updated new state with selected campus', () => {
+          it('returns an immutably-updated new state with selected campus', () => {
             const newState = reducer(initialState, {
               type: SELECT_CAMPUS,
               campus: marsCampus,
@@ -261,7 +261,7 @@ describe('Tier Two', () => {
         describe('`fetchCampuses` thunk creator', () => {
           // defined in ../client/redux/actions.js
 
-          xit('returns a thunk to fetch campuses from the backend and dispatch a SET_CAMPUSES action', async () => {
+          it('returns a thunk to fetch campuses from the backend and dispatch a SET_CAMPUSES action', async () => {
             mock.onGet('/api/campuses').replyOnce(200, campuses);
             await store.dispatch(fetchCampuses());
             const actions = store.getActions();
@@ -277,11 +277,11 @@ describe('Tier Two', () => {
   //
   // Write a function that can take an array of successive key-value pairs and turn it into a nice little object, where the zeroth element is the first key and the element right after it is the first value. See the examples below:
   describe('`makeObjectFromArray` utility method', () => {
-    xit('takes an array and returns an object', () => {
+    it('takes an array and returns an object', () => {
       const output = utils.makeObjectFromArray([]);
       expect(output).to.be.an('object');
     });
-    xit('Turns successive pairs of array elements into key-value pairs in the object', () => {
+    it('Turns successive pairs of array elements into key-value pairs in the object', () => {
       const output1 = utils.makeObjectFromArray([]);
       expect(output1).to.deep.equal({});
 

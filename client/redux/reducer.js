@@ -1,12 +1,21 @@
 import { SET_CAMPUSES, SELECT_CAMPUS, ADD_CAMPUS } from './constants';
+import { Switch } from 'react-router-dom';
 
 const initialState = {
   campuses: [],
   selectedCampus: {},
-  students: []
+  students: [],
 };
 
 export default (state = initialState, action) => {
-  //your code here
-  return state;
+  switch (action.type) {
+    case SET_CAMPUSES:
+      return { ...state, campuses: action.campuses };
+    case SELECT_CAMPUS:
+      return { ...state, selectedCampus: action.campus };
+    case ADD_CAMPUS:
+      return { ...state, campuses: [...state.campuses, action.campus] };
+    default:
+      return state;
+  }
 };

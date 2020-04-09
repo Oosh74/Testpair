@@ -3,24 +3,43 @@ import { SET_CAMPUSES, SELECT_CAMPUS, ADD_CAMPUS } from './constants';
 
 // ACTION CREATORS
 
-export const setCampuses = () => {
-  //your code here
+export const setCampuses = (campuses) => {
+  return {
+    type: SET_CAMPUSES,
+    campuses,
+  };
 };
 
-export const selectCampus = () => {
-  //this action object should contain a key called `campus`
+export const selectCampus = (campus) => {
+  return {
+    type: SELECT_CAMPUS,
+    campus,
+  };
 };
 
-export const addCampus = () => {
-  //your code here
+export const addCampus = (campus) => {
+  return {
+    type: ADD_CAMPUS,
+    campus,
+  };
 };
 
 // THUNK CREATORS
 
-export const fetchCampuses = () => {
-  //your code here
+export const fetchCampuses = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get('/api/campuses');
+    dispatch(setCampuses(data));
+  } catch (error) {
+    return error;
+  }
 };
 
-export const postCampus = () => {
-  //your code here
+export const postCampus = () => async (dispatch) => {
+  try {
+    const { data } = await axios.post('/api/campuses');
+    dispatch(addCampus(data));
+  } catch (error) {
+    return error;
+  }
 };
